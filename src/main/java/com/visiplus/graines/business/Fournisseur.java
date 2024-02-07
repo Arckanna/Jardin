@@ -1,2 +1,7 @@
-package com.visiplus.graines.business;public class Fournisseur {
+package com.visiplus.graines.business;
+
+import javax.persistence.*;
+
+@Entity
+public class Fournisseur {
 }
