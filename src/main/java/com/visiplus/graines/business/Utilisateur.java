@@ -1,31 +1,35 @@
 package com.visiplus.graines.business;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
-
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
+    @NotBlank(message = "Le nom est obligatoire")
+    @Size(max = 100)
     private String nom;
 
-    @Column(length = 100, nullable = false)
+    @NotBlank(message = "Le prénom est obligatoire")
+    @Size(max = 100)
     private String prenom;
 
-    @Column(length = 150, unique = true, nullable = false)
+    @NotBlank(message = "L'adresse email est obligatoire")
+    @Email(message = "L'adresse email doit être valide")
+    @Column(unique = true)
     private String adresseEmail;
 
-    @Column(length = 100, nullable = false)
+    @NotBlank(message = "Le mot de passe est obligatoire")
+    @Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
     private String motDePasse;
 
+    public Utilisateur() {
+    }
     public Utilisateur(Long id, String nom, String prenom, String adresseEmail, String motDePasse) {
         this.id = id;
         this.nom = nom;
@@ -72,5 +76,16 @@ public class Utilisateur {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", adresseEmail='" + adresseEmail + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                '}';
     }
 }

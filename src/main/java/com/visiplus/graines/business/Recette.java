@@ -3,6 +3,7 @@ package com.visiplus.graines.business;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class Recette {
@@ -16,7 +17,7 @@ public class Recette {
     private String nom;
 
     @Column(nullable = false, length = 10000)
-    @NotBlank
+    @NotBlank(message = "L'intitulé est obligatoire")
     @Size(max = 10000)
     private String intitule;
 
@@ -25,11 +26,18 @@ public class Recette {
     @Size(max = 10000)
     private String contenu;
 
-    public Recette(Long id, String nom, String intitule, String contenu) {
+    @ManyToMany
+    private Set<TypeDeGraine> typesDeGraine;
+
+    public Recette() {
+    }
+
+    public Recette(Long id, String nom, String intitule, String contenu, Set<TypeDeGraine> typesDeGraine) {
         this.id = id;
         this.nom = nom;
         this.intitule = intitule;
         this.contenu = contenu;
+        this.typesDeGraine = typesDeGraine;
     }
 
     public Long getId() {
@@ -64,6 +72,14 @@ public class Recette {
         this.contenu = contenu;
     }
 
+    public Set<TypeDeGraine> getTypesDeGraine() {
+        return typesDeGraine;
+    }
+
+    public void setTypesDeGraine(Set<TypeDeGraine> typesDeGraine) {
+        this.typesDeGraine = typesDeGraine;
+    }
+
     @Override
     public String toString() {
         return "Recette{" +
@@ -71,6 +87,7 @@ public class Recette {
                 ", nom='" + nom + '\'' +
                 ", intitule='" + intitule + '\'' +
                 ", contenu='" + contenu + '\'' +
+                ", typesDeGraine=" + typesDeGraine +
                 '}';
     }
 }
