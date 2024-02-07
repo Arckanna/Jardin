@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface recetteDAO extends JpaRepository<Recette, Long> {
+public interface RecetteRepository extends JpaRepository<Recette, Long> {
     @Query("SELECT r FROM Recette r ORDER BY SIZE(r.typesDeGraine) DESC")
     List<Recette> findRecettesSortedByNumberOfGraineTypes();
 }
