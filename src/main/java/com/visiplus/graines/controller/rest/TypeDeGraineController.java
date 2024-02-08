@@ -1,4 +1,4 @@
-package com.visiplus.graines.controllers;
+package com.visiplus.graines.controller.rest;
 
 import com.visiplus.graines.business.TypeDeGraine;
 import com.visiplus.graines.services.TypeDeGraineService;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/types-de-graine")
@@ -27,7 +28,7 @@ public class TypeDeGraineController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeDeGraine> updateTypeDeGraine(@PathVariable Long id, @RequestBody TypeDeGraine typeDeGraine) {
+    public ResponseEntity<Optional<TypeDeGraine>> updateTypeDeGraine(@PathVariable Long id, @RequestBody TypeDeGraine typeDeGraine) {
         return ResponseEntity.ok(typeDeGraineService.updateTypeDeGraine(id, typeDeGraine));
     }
 
